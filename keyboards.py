@@ -1,5 +1,6 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from aiogram.types import InlineKeyboardButton
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 
 def start_inline_keyboard():
     builder = InlineKeyboardBuilder()
@@ -67,3 +68,20 @@ def try_technique(technique: str):
     ))
     builder.adjust(1)
     return builder.as_markup()
+
+def get_anxiety_keyboard():
+    builder = InlineKeyboardBuilder()
+    builder.add(InlineKeyboardButton(
+        text = "Пройти тест",
+        callback_data= "start_test"
+    ))
+    builder.add(InlineKeyboardButton(
+        text="Назад",
+        callback_data="back"
+    ))
+    return builder.as_markup()
+
+def get_answer_keyboard():
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=str(i), callback_data=f"answer_{i}") for i in range(1,6)]
+    ])

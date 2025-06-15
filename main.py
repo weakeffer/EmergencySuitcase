@@ -14,6 +14,7 @@ from keyboards import start_inline_keyboard
 from dotenv import load_dotenv
 from callback import callback_router
 from breathing_practices import breathing_router
+from anxiety_test import anxiety_router
 
 load_dotenv()
 
@@ -27,13 +28,13 @@ async def main() -> None:
     dp = Dispatcher()
     dp.include_router(callback_router)
     dp.include_router(breathing_router)
+    dp.include_router(anxiety_router)
 
     @dp.message(Command("start"))
     async def start_command(message:Message):
         await message.answer(f"Привет, {hbold(message.from_user.full_name)}, я твой антидепрессант!"
                              f"Чем я могу тебе помочь?",
                              reply_markup=start_inline_keyboard())
-
 
     try:
         await dp.start_polling(bot)

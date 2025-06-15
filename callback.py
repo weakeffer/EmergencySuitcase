@@ -2,7 +2,7 @@ import asyncio
 from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery
 from aiogram.utils.markdown import hbold
-from keyboards import choose_breathing_practice
+from keyboards import choose_breathing_practice, get_anxiety_keyboard
 
 callback_router = Router()
 
@@ -18,8 +18,8 @@ async def delete_message(callback:CallbackQuery):
 
 @callback_router.callback_query(F.data == "test")
 async def handle_breathe(callback: CallbackQuery):
-    await callback.message.answer(f"Тут ты сможешь пройти тест на свой уровень тревоги, "
-                                  f"{hbold(callback.from_user.full_name)}")
+    await callback.message.answer(f"Вы можете пройти тест на уровень тревоги. "
+                                  f"{hbold(callback.from_user.full_name)}", reply_markup=get_anxiety_keyboard())
 
 @callback_router.callback_query(F.data == "daily_advice")
 async def handle_breathe(callback: CallbackQuery):
